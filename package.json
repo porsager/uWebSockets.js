@@ -1,6 +1,6 @@
 {
   "name": "uWebSockets.js",
-  "version": "20.49.0",
+  "version": "20.50.0",
   "license": "Apache-2.0",
   "main": "uws.js",
   "types": "./index.d.ts",
@@ -10,6 +10,35 @@
     "types": "./index.d.ts"
   },
   "optionalDependencies": {
-    $deps
+    "@uws/uws_linux_x64_115": "github:porsager/uWebSockets.js#v20.50.0-uws_linux_x64_115",
+    "@uws/uws_linux_arm_115": "github:porsager/uWebSockets.js#v20.50.0-uws_linux_arm_115",
+    "@uws/uws_darwin_x64_115": "github:porsager/uWebSockets.js#v20.50.0-uws_darwin_x64_115",
+    "@uws/uws_linux_x64_131": "github:porsager/uWebSockets.js#v20.50.0-uws_linux_x64_131",
+    "@uws/uws_darwin_x64_108": "github:porsager/uWebSockets.js#v20.50.0-uws_darwin_x64_108",
+    "@uws/uws_darwin_arm64_131": "github:porsager/uWebSockets.js#v20.50.0-uws_darwin_arm64_131",
+    "@uws/uws_darwin_arm64_120": "github:porsager/uWebSockets.js#v20.50.0-uws_darwin_arm64_120",
+    "@uws/uws_darwin_x64_120": "github:porsager/uWebSockets.js#v20.50.0-uws_darwin_x64_120",
+    "@uws/uws_win32_x64_127": "github:porsager/uWebSockets.js#v20.50.0-uws_win32_x64_127",
+    "@uws/uws_linux_arm_127": "github:porsager/uWebSockets.js#v20.50.0-uws_linux_arm_127",
+    "@uws/uws_linux_arm64_131": "github:porsager/uWebSockets.js#v20.50.0-uws_linux_arm64_131",
+    "@uws/uws_win32_x64_120": "github:porsager/uWebSockets.js#v20.50.0-uws_win32_x64_120",
+    "@uws/uws_linux_x64_120": "github:porsager/uWebSockets.js#v20.50.0-uws_linux_x64_120",
+    "@uws/uws_linux_arm_131": "github:porsager/uWebSockets.js#v20.50.0-uws_linux_arm_131",
+    "@uws/uws_linux_arm_108": "github:porsager/uWebSockets.js#v20.50.0-uws_linux_arm_108",
+    "@uws/uws_linux_x64_108": "github:porsager/uWebSockets.js#v20.50.0-uws_linux_x64_108",
+    "@uws/uws_linux_arm64_120": "github:porsager/uWebSockets.js#v20.50.0-uws_linux_arm64_120",
+    "@uws/uws_linux_x64_127": "github:porsager/uWebSockets.js#v20.50.0-uws_linux_x64_127",
+    "@uws/uws_linux_arm64_127": "github:porsager/uWebSockets.js#v20.50.0-uws_linux_arm64_127",
+    "@uws/uws_linux_arm_120": "github:porsager/uWebSockets.js#v20.50.0-uws_linux_arm_120",
+    "@uws/uws_win32_x64_131": "github:porsager/uWebSockets.js#v20.50.0-uws_win32_x64_131",
+    "@uws/uws_darwin_arm64_115": "github:porsager/uWebSockets.js#v20.50.0-uws_darwin_arm64_115",
+    "@uws/uws_darwin_arm64_108": "github:porsager/uWebSockets.js#v20.50.0-uws_darwin_arm64_108",
+    "@uws/uws_linux_arm64_115": "github:porsager/uWebSockets.js#v20.50.0-uws_linux_arm64_115",
+    "@uws/uws_win32_x64_108": "github:porsager/uWebSockets.js#v20.50.0-uws_win32_x64_108",
+    "@uws/uws_darwin_arm64_127": "github:porsager/uWebSockets.js#v20.50.0-uws_darwin_arm64_127",
+    "@uws/uws_darwin_x64_131": "github:porsager/uWebSockets.js#v20.50.0-uws_darwin_x64_131",
+    "@uws/uws_linux_arm64_108": "github:porsager/uWebSockets.js#v20.50.0-uws_linux_arm64_108",
+    "@uws/uws_darwin_x64_127": "github:porsager/uWebSockets.js#v20.50.0-uws_darwin_x64_127",
+    "@uws/uws_win32_x64_115": "github:porsager/uWebSockets.js#v20.50.0-uws_win32_x64_115"
   }
 }
