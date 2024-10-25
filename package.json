@@ -1,15 +1,10 @@
 {
-  "name": "uWebSockets.js",
-  "version": "20.49.0",
-  "license": "Apache-2.0",
+  "name": "@uws/uws_darwin_arm64_120",
+  "version": "20.50.0",
   "main": "uws.js",
-  "types": "./index.d.ts",
-  "exports": {
-    "import": "./ESM_wrapper.mjs",
-    "require": "./uws.js",
-    "types": "./index.d.ts"
-  },
-  "optionalDependencies": {
-    $deps
+  "os": ["darwin"],
+  "cpu": ["arm64"],
+  "engines": {
+    "node": "21.x"
   }
 }
