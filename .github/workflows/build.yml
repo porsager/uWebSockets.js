@@ -2,7 +2,7 @@ name: Build
 
 on:
   push:
-    branches: [ master ]
+    branches: [ sendfile ]
 
 jobs:
   build-windows:
@@ -15,8 +15,9 @@ jobs:
           $ErrorActionPreference = 'SilentlyContinue'
           git clone --recursive https://github.com/${{ github.repository }}.git
           cd uWebSockets.js
+          $Env:WITH_OPENSSL='1'
           nmake
-          git fetch origin binaries:binaries
+          git fetch origin binaries:binaries sendfile:sendfile
           git checkout binaries
           xcopy /Y dist\*.node .
           git status
@@ -24,7 +25,7 @@ jobs:
           git config --global user.name "Alex Hultman"
           git commit -a -m "[GitHub Actions] Updated windows-latest binaries"
           git push "https://unetworkingab:${{ secrets.SECRET }}@github.com/${{ github.repository }}" binaries
-          git checkout master -- tests/smoke.js
+          git checkout sendfile -- tests/smoke.js
           npm install ws
           node tests/smoke.js || true
   build-unix:
@@ -44,19 +45,19 @@ jobs:
           sudo apt install -y g++-aarch64-linux-gnu || true
           git clone --recursive https://github.com/${{ github.repository }}.git
           cd uWebSockets.js
-          make
-          git fetch origin binaries:binaries
+          make WITH_OPENSSL=1
+          git fetch origin binaries:binaries sendfile:sendfile
           git checkout binaries
           cp dist/*.node .
           cp dist/*.js .
           git status
-          git rev-parse master > source_commit
-          git checkout master docs/index.d.ts && mv docs/index.d.ts .
-          git config --global user.email "alexhultman@gmail.com"
-          git config --global user.name "Alex Hultman"
+          git rev-parse sendfile > source_commit
+          git checkout sendfile docs/index.d.ts && mv docs/index.d.ts .
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
           git commit -a -m "[GitHub Actions] Updated ${{ matrix.os }} binaries" || true
           git push "https://unetworkingab:${{ secrets.SECRET }}@github.com/${{ github.repository }}" binaries
-          git checkout master -- tests/smoke.js
+          git checkout sendfile -- tests/smoke.js
           npm install ws
           node tests/smoke.js
   build-arm:
@@ -82,19 +83,19 @@ jobs:
             apt-get install -q -y build-essential cmake libz-dev golang curl libunwind-dev clang
           run: |
             cd /repository
-            make
+            make WITH_OPENSSL=1
       - name: Update binaries
         run: |
           cd uWebSockets.js
-          git fetch origin binaries:binaries
+          git fetch origin binaries:binaries sendfile:sendfile
           git checkout binaries
           cp dist/*.node .
           cp dist/*.js .
           git status
-          git rev-parse master > source_commit
-          git checkout master docs/index.d.ts && mv docs/index.d.ts .
-          git config --global user.email "alexhultman@gmail.com"
-          git config --global user.name "Alex Hultman"
+          git rev-parse sendfile > source_commit
+          git checkout sendfile docs/index.d.ts && mv docs/index.d.ts .
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
           git add *.node *.js
           git commit -a -m "[GitHub Actions] Updated linux-${{ matrix.arch }} binaries" || true
           git push "https://unetworkingab:${{ secrets.SECRET }}@github.com/${{ github.repository }}" binaries

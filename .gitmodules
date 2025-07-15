@@ -1,3 +1,4 @@
 [submodule "uWebSockets"]
 	path = uWebSockets
 	url = https://github.com/porsager/uWebSockets
+	branch = sendfile

@@ -434,6 +434,39 @@ struct HttpResponseWrapper {
         }
     }
 
+    template <int SSL>
+    static void res_sendFile(const FunctionCallbackInfo<Value> &args) {
+        Isolate *isolate = args.GetIsolate();
+        auto *res = getHttpResponse<SSL>(args);
+        if (res) {
+            if (args.Length() < 1 || !args[0]->IsString()) {
+                Nan::ThrowTypeError("First argument must be a string (path)");
+                return;
+            }
+
+            NativeString pathStr(isolate, args[0]);
+            if (pathStr.isInvalid(args)) {
+                return;
+            }
+            std::string path = pathStr.getString();
+
+            std::string rangeHeader;
+            if (args.Length() > 1 && args[1]->IsObject()) {
+                Local<Object> opts = args[1].As<Object>();
+                Local<Value> rangeVal = Nan::Get(opts, Nan::New("range").ToLocalChecked()).ToLocalChecked();
+                if (rangeVal->IsString()) {
+                    NativeString rangeStr(isolate, rangeVal);
+                    if (!rangeStr.isInvalid(args)) {
+                        rangeHeader = rangeStr.getString();
+                    }
+                }
+            }
+
+            bool result = res->sendFile(path, rangeHeader);
+            args.GetReturnValue().Set(Nan::New<Boolean>(result));
+        }
+    }
+
     /* 0 = TCP, 1 = TLS, 2 = QUIC, 3 = CACHE */
     template <int SSL>
     static Local<Object> init(Isolate *isolate) {
@@ -451,7 +484,8 @@ struct HttpResponseWrapper {
 
         /* Register our functions */
         resTemplateLocal->PrototypeTemplate()->Set(String::NewFromUtf8(isolate, "end", NewStringType::kNormal).ToLocalChecked(), FunctionTemplate::New(isolate, res_end<SSL>));
-        
+        resTemplateLocal->PrototypeTemplate()->Set(String::NewFromUtf8(isolate, "sendFile", NewStringType::kNormal).ToLocalChecked(), FunctionTemplate::New(isolate, res_sendFile<SSL>));
+
         /* Cache has almost nothing wrapped yet */
         if constexpr (SSL != 3) {
             resTemplateLocal->PrototypeTemplate()->Set(String::NewFromUtf8(isolate, "writeStatus", NewStringType::kNormal).ToLocalChecked(), FunctionTemplate::New(isolate, res_writeStatus<SSL>));
@@ -482,7 +516,7 @@ struct HttpResponseWrapper {
         if constexpr (SSL == 1) {
             resTemplateLocal->PrototypeTemplate()->Set(String::NewFromUtf8(isolate, "getX509Certificate", NewStringType::kNormal).ToLocalChecked(), FunctionTemplate::New(isolate, res_getX509Certificate<SSL>));
         }
-        
+
         /* Create our template */
         Local<Object> resObjectLocal = resTemplateLocal->GetFunction(isolate->GetCurrentContext()).ToLocalChecked()->NewInstance(isolate->GetCurrentContext()).ToLocalChecked();
 
